@@ -8,10 +8,6 @@ Zoomable images are displayed by making a tiled `image pyramid`_. There are seve
 The OpenSeadragon_ JavaScript library displays the locally- or externally-hosted images.
 
 
-.. _`image pyramid`: http://msdn.microsoft.com/en-us/library/cc645077(v=vs.95).aspx
-.. _VIPS: http://www.vips.ecs.soton.ac.uk/index.php?title=VIPS
-.. _OpenSeadragon: http://openseadragon.github.io/
-
 Install
 =======
 
@@ -22,8 +18,6 @@ Install
 2. Add ``"loupe",`` to your Django project's ``INSTALLED_APPS``.
 
 3. Install VIPS_ on your platform. There are packages for Windows, and most Linux distributions include a package. There is a homebrew recipe for Mac OS X.
-
-.. _VIPS: http://www.vips.ecs.soton.ac.uk/index.php?title=Supported
 
 
 Upload an image
@@ -78,3 +72,8 @@ Using remote storage
 #. Use ``django-queued-storage``
 #. Set ``'IMAGE_STORAGE'`` to appropriate storage type.
 #. Specify setting ``'QUEUED_STORAGE_TASK'`` to either ``'loupe.task.TileAndTransfer'`` or ``'loupe.task.TileTransferAndDelete'``.
+
+
+.. _`image pyramid`: http://msdn.microsoft.com/en-us/library/cc645077(v=vs.95).aspx
+.. _VIPS: http://www.vips.ecs.soton.ac.uk/index.php?title=VIPS
+.. _OpenSeadragon: http://openseadragon.github.io/
