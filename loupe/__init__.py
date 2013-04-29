@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-loupe
+A high resolution image manager for pan and zooming into images
 """
 __version_info__ = {
     'major': 0,
