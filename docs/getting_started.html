@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Getting Started &mdash; django-loupe 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="django-loupe 0.1 documentation" href="index.html" />
+    <link rel="next" title="Reference" href="reference/index.html" />
+    <link rel="prev" title="Django Loupe v 0.1" href="index.html" /> 
+  </head>
+  <body>
+<div id="docstitle">
+	<p>django-loupe 0.1 documentation</p>
+</div>
+<div id="header">
+	<div id="title"><h1>Getting Started</h1></div>
+	<ul id="headerButtons">
+		<li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+		<li id="page_buttons">
+			<div class="headerButton"><a href="genindex.html" title="General Index" accesskey="I">index</a></div>
+			<div class="headerButton"><a href="reference/index.html" title="Reference" accesskey="N">next</a></div>
+			<div class="headerButton"><a href="index.html" title="Django Loupe v 0.1" accesskey="P">previous</a></div>
+		</li>
+	</ul>
+</div>
+
+<div id="sphinxsidebar">
+  <div class="sphinxsidebarwrapper">
+	<ul><li class="toctree-l1"><a href="index.html">Main Page</a></li></ul>
+	<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#install">Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#upload-an-image">Upload an image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#enter-an-externally-hosted-image">Enter an externally hosted image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#serving-an-image">Serving an image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-remote-storage">Using remote storage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference/index.html">Reference</a></li>
+</ul>
+
+    <div id="searchbox" style="display: none">
+      
+        <form class="search" action="search.html" method="get">
+			<div class="search-wrapper">
+			<span class="search-left"></span>
+			<input class="prettysearch" type="text" name="q" size="18" />
+			<span class="search-right">&nbsp;</span>
+			</div>
+          <input type="submit" value="Search" class="searchbutton" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+        <p class="searchtip" style="font-size: 90%">
+        Enter search terms or a module, class or function name.
+        </p>
+    </div>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+</div>
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="install">
+<h2>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">Install Django Loupe using <tt class="docutils literal"><span class="pre">pip</span></tt>:</p>
+<div class="highlight-python"><pre>pip install django-loupe</pre>
+</div>
+</li>
+<li><p class="first">Add <tt class="docutils literal"><span class="pre">&quot;loupe&quot;,</span></tt> to your Django project&#8217;s <tt class="docutils literal"><span class="pre">INSTALLED_APPS</span></tt>.</p>
+</li>
+<li><p class="first">Install <a class="reference external" href="http://www.vips.ecs.soton.ac.uk/index.php?title=Supported">VIPS</a> on your platform. There are packages for Windows, and most Linux distributions include a package. There is a homebrew recipe for Mac OS X.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="upload-an-image">
+<h2>Upload an image<a class="headerlink" href="#upload-an-image" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Add a new loupe image</li>
+<li>Enter in a title and description</li>
+<li>Click on the upload file button and select a high-res file</li>
+<li>Save.</li>
+</ol>
+</div>
+<div class="section" id="enter-an-externally-hosted-image">
+<h2>Enter an externally hosted image<a class="headerlink" href="#enter-an-externally-hosted-image" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Add a new loupe image</li>
+<li>Enter a title and description</li>
+<li>Enter in the URL for the tiles. This is not the URL for the page where you view the image. You will have to look at the page source to discover the tileset URL. Different formats have standard description files and Django Loupe will determine the correct URL from these.<ul>
+<li><strong>Deep Zoom:</strong> <tt class="docutils literal"><span class="pre">http://example.com/path/to/image/imagename.dzi</span></tt></li>
+<li><strong>International Image Interoperability Framework:</strong> <tt class="docutils literal"><span class="pre">http://example.com/path/to/image/info.xml</span></tt></li>
+<li><strong>Zoomify:</strong> <tt class="docutils literal"><span class="pre">http://example.com/path/to/image/ImageProperties.xml</span></tt></li>
+</ul>
+</li>
+<li>Select the type of External tileset type from the selection.</li>
+<li>Save.</li>
+</ol>
+</div>
+<div class="section" id="serving-an-image">
+<h2>Serving an image<a class="headerlink" href="#serving-an-image" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">In the template include the JavaScript:</p>
+<div class="highlight-django"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">load</span> <span class="nv">loupe_tags</span> <span class="cp">%}{%</span> <span class="k">openseadragon_js</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">{{</span> <span class="pre">object.render</span> <span class="pre">}}</span></tt> will include the HTML fragment for the large image.</p>
+<ul class="simple">
+<li>If it is an external tile set, it looks for <tt class="docutils literal"><span class="pre">&lt;modulename&gt;/&lt;classname&gt;_&lt;tileset_type&gt;.html</span></tt> where <tt class="docutils literal"><span class="pre">&lt;tileset_type&gt;</span></tt> is the short name of the tileset type choice.</li>
+<li>Finally, it looks in <tt class="docutils literal"><span class="pre">&lt;modulename&gt;/&lt;classname&gt;_default.html</span></tt></li>
+</ul>
+</li>
+</ol>
+</div>
+<div class="section" id="using-remote-storage">
+<h2>Using remote storage<a class="headerlink" href="#using-remote-storage" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Use <tt class="docutils literal"><span class="pre">django-queued-storage</span></tt></li>
+<li>Set <tt class="docutils literal"><span class="pre">'IMAGE_STORAGE'</span></tt> to appropriate storage type.</li>
+<li>Specify setting <tt class="docutils literal"><span class="pre">'QUEUED_STORAGE_TASK'</span></tt> to either <tt class="docutils literal"><span class="pre">'loupe.task.TileAndTransfer'</span></tt> or <tt class="docutils literal"><span class="pre">'loupe.task.TileTransferAndDelete'</span></tt>.</li>
+</ol>
+</div>
+</div>
+
+
+          </div> 
+        </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2013, Corey Oordt.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2b1.
+	</p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+	<div id="breadcrumbs">
+		Getting Started
+		</ul>
+	</div>
+	<script type="text/javascript" charset="utf-8" src="_static/toc.js"></script>
+  </body>
+</html>

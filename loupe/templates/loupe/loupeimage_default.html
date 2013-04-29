@@ -1,0 +1,13 @@
+{% load static from staticfiles %}
+<div id="{{ object.slug }}" class="openseadragon" style="width: 600px;height:600px">
+    <script type="text/javascript">
+        OpenSeadragon({
+            id: "{{ object.slug }}",
+            prefixUrl: "{% static 'openseadragon/images/' %}",
+            tileSources: [{{ object.tileset_url|safe }}]
+        });
+    </script>
+    <noscript>
+        <p>Deep zoom is not available unless javascript is enabled.</p>
+    </noscript>
+</div>

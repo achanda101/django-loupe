@@ -1,0 +1,7 @@
+{% spaceless %}{% if DEBUG %}
+<script src="{{ STATIC_URL }}openseadragon/openseadragon.js"></script>
+<script src="{{ STATIC_URL }}openseadragon/zoomify.js"></script>
+{% else %}
+<script src="{{ STATIC_URL }}openseadragon/openseadragon.min.js"></script>
+<script src="{{ STATIC_URL }}openseadragon/zoomify.js"></script>
+{% endif %}{% endspaceless %}

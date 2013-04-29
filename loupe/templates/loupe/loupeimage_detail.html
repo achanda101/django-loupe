@@ -1,0 +1,5 @@
+{% extends "loupe/base.html" %}
+{% block content %}
+{% load loupe_tags %}{% openseadragon_js %}
+{{ object.render }}
+{% endblock content %}
