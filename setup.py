@@ -25,7 +25,7 @@ def get_readme():
 DESC = " ".join(__import__('loupe').__doc__.splitlines()).strip()
 
 setup(
-    name="django-loupe",
+    name="django-image-loupe",
     version=__import__('loupe').get_version().replace(' ', '-'),
     url='https://github.com/natgeoed/django-loupe',
     author='Corey Oordt',
