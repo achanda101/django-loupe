@@ -59,7 +59,7 @@ class BaseLoupeImage(DirtyFieldsMixin, models.Model):
     base_tile_url = models.CharField(_('base tile URL'),
         max_length=255,
         blank=True, null=True)
-    thumbnail = models.ImageField(_('thumbnail'), upload_to="loupe_thumbs", blank=True, null=True)
+    thumbnail = models.FileField(_('thumbnail'), upload_to="loupe_thumbs", blank=True, null=True)
     document_name = models.CharField(_('document name'),
         max_length=255,
         blank=True, null=True,
@@ -75,16 +75,15 @@ class BaseLoupeImage(DirtyFieldsMixin, models.Model):
         """
         if self.image:
             return "'%s.dzi'" % os.path.splitext(self.image.url)[0]
-        elif self.external_tileset_type == 'zoomify':
-            return """
-{
-    width: %s,
-    height: %s,
-    tilesUrl: "%s",
-    type: "zoomify"
-}
-""" % (self.image_width, self.image_height, self.external_tileset_url)
-        return self.external_tileset_url
+        else:
+            return self.external_tileset_url
+
+    @property
+    def tileset_source(self):
+        if self.external_tileset_type == 'zoomify':
+            return """{width: %s, height: %s, tilesUrl: "%s", type: "zoomify"}""" % (self.image_width, self.image_height, self.external_tileset_url)
+        else:
+            return self.tileset_url
 
     class Meta:
         abstract = True
@@ -124,14 +123,17 @@ class BaseLoupeImage(DirtyFieldsMixin, models.Model):
             tile_type = self.external_tileset_type
         else:
             tile_type = 'dzi'
-        metadata_func = getattr(tileset, 'get_%s_metadata' % tile_type)
-        metadata = metadata_func(self.tileset_url)
+        try:
+            metadata_func = getattr(tileset, 'get_%s_metadata' % tile_type)
+            metadata = metadata_func(self.tileset_url)
 
-        self.image_height = metadata.get('height')
-        self.image_width = metadata.get('width')
-        self.tile_size = metadata.get('tilesize')
-        self.base_tile_url = metadata.get('base_tile_url')
-        self.save()
+            self.image_height = metadata.get('height')
+            self.image_width = metadata.get('width')
+            self.tile_size = metadata.get('tilesize')
+            self.base_tile_url = metadata.get('base_tile_url')
+            self.save()
+        except AttributeError:
+            pass
 
     def save(self, *args, **kwargs):
         """
@@ -156,3 +158,23 @@ class LoupeImage(BaseLoupeImage):
 
     def get_absolute_url(self):
         return reverse('loupeimage-detail', kwargs={'slug': self.slug})
+
+
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+
+@receiver(post_save, sender=LoupeImage)
+def create_external_thumbnail(sender, instance, created, raw, using, *args, **kwargs):
+    print instance.external_tileset_url
+    print hasattr(instance.thumbnail, 'file')
+    if instance.external_tileset_url and not hasattr(instance.thumbnail, 'file'):
+        try:
+            import tileset
+
+            thumbnail_func = getattr(tileset, 'create_%s_thumbnail' % instance.external_tileset_type)
+            filename, size, content = thumbnail_func(instance.tileset_url)
+            instance.thumbnail.save(filename, content)
+            print instance.thumbnail
+        except AttributeError:
+            pass

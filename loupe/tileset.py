@@ -88,6 +88,18 @@ def get_dzi_metadata(url):
     return output
 
 
+def create_zoomify_thumbnail(url):
+    """
+    Download the 0-0-0.jpg image to use as the thumbnail.
+    Returns a filename, (width, height), ContentFile tuple for saving in a field
+    """
+    from .download_external_img import django_website_image
+    thumb_url = url.replace('ImageProperties.xml', 'TileGroup0/0-0-0.jpg')
+    name = "{0}.jpg".format(thumb_url.split("/")[-3])
+    filename, size, contentfile = django_website_image(thumb_url)
+    return name, size, contentfile
+
+
 def get_zoomify_metadata(url):
     """
     url should be in the format "http://domain.com/path/to/images/ImageProperties.xml"

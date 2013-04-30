@@ -4,7 +4,7 @@
         OpenSeadragon({
             id: "{{ object.slug }}",
             prefixUrl: "{% static 'openseadragon/images/' %}",
-            tileSources: [{{ object.tileset_url|safe }}]
+            tileSources: [{{ object.tileset_source|safe }}]
         });
     </script>
     <noscript>
