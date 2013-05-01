@@ -42,7 +42,7 @@ class BaseLoupeImageAdmin(admin.ModelAdmin):
         Show the type of tileset
         """
         if obj.external_tileset_type:
-            return "Externally hostedt %s" % obj.get_external_tileset_type_display()
+            return "Externally hosted %s" % obj.get_external_tileset_type_display()
         else:
             return "Locally hosted DeepZoom"
 
