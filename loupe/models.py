@@ -50,15 +50,19 @@ class BaseLoupeImage(DirtyFieldsMixin, models.Model):
             ('zoomify', 'Zoomify'),
         ), )
     image_height = models.IntegerField(_('image height'),
-        blank=True, null=True)
+        blank=True, null=True,
+        editable=False)
     image_width = models.IntegerField(_('image width'),
-        blank=True, null=True)
+        blank=True, null=True,
+        editable=False)
     tile_size = models.IntegerField(_('tile site'),
         default=256,
-        blank=True, null=True)
+        blank=True, null=True,
+        editable=False)
     base_tile_url = models.CharField(_('base tile URL'),
         max_length=255,
-        blank=True, null=True)
+        blank=True, null=True,
+        editable=False)
     thumbnail = models.FileField(_('thumbnail'), upload_to="loupe_thumbs", blank=True, null=True)
     document_name = models.CharField(_('document name'),
         max_length=255,
@@ -122,7 +126,7 @@ class BaseLoupeImage(DirtyFieldsMixin, models.Model):
         if self.external_tileset_type:
             tile_type = self.external_tileset_type
         else:
-            tile_type = 'dzi'
+            tile_type = 'local'
         try:
             metadata_func = getattr(tileset, 'get_%s_metadata' % tile_type)
             metadata = metadata_func(self.tileset_url)
@@ -166,8 +170,6 @@ from django.dispatch import receiver
 
 @receiver(post_save, sender=LoupeImage)
 def create_external_thumbnail(sender, instance, created, raw, using, *args, **kwargs):
-    print instance.external_tileset_url
-    print hasattr(instance.thumbnail, 'file')
     if instance.external_tileset_url and not hasattr(instance.thumbnail, 'file'):
         try:
             import tileset
@@ -175,6 +177,5 @@ def create_external_thumbnail(sender, instance, created, raw, using, *args, **kw
             thumbnail_func = getattr(tileset, 'create_%s_thumbnail' % instance.external_tileset_type)
             filename, size, content = thumbnail_func(instance.tileset_url)
             instance.thumbnail.save(filename, content)
-            print instance.thumbnail
         except AttributeError:
             pass
