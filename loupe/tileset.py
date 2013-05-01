@@ -88,6 +88,15 @@ def get_dzi_metadata(url):
     return output
 
 
+def get_local_metadata(url):
+    """
+    For handling locally hosted images
+    """
+    from django.contrib.sites.models import Site
+    url = "http://%s" % Site.objects.get_current().domain
+    return get_dzi_metadata(url)
+
+
 def create_zoomify_thumbnail(url):
     """
     Download the 0-0-0.jpg image to use as the thumbnail.
